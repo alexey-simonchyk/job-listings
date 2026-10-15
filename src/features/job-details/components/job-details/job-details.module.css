@@ -1,0 +1,79 @@
+.page {
+  min-height: 100vh;
+  padding: 48px max(40px, calc((100% - 1040px) / 2)) 64px;
+  background: #f4f7f7;
+  color: #182e32;
+}
+
+.page h1 {
+  margin: 0 0 20px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.page p {
+  margin: 0 0 20px;
+  color: #52676b;
+}
+
+.page p:empty {
+  display: none;
+}
+
+.panel {
+  padding: 28px;
+  border: 1px solid #dce5e5;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.backLink {
+  color: #205e52;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.backLink:focus-visible {
+  outline: 3px solid #16796b;
+  outline-offset: 4px;
+}
+
+.details {
+  margin-top: 24px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px 32px;
+  margin: 0;
+}
+
+.facts dt {
+  margin-bottom: 4px;
+  color: #52676b;
+  font-size: 13px;
+}
+
+.facts dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.section {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #dce5e5;
+}
+
+.section h2 {
+  margin: 0 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.description {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+

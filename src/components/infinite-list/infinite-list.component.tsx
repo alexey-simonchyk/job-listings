@@ -1,6 +1,6 @@
 "use client";
 
-import type { Key, ReactNode } from "react";
+import { useRef, type Key, type ReactNode, useCallback } from 'react';
 import styles from "./infinite-list.module.css";
 
 type InfiniteListProps<T> = {
@@ -36,11 +36,21 @@ export function InfiniteList<T>({
     end: "All available items have been loaded.",
   },
 }: InfiniteListProps<T>) {
+  const listRef = useRef<HTMLUListElement>(null);
+
+  const scrollToTop = useCallback(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    listRef.current?.scrollIntoView({
+      behavior: prefersReducedMotion ? "instant" : "smooth",
+      block: "start",
+    });
+  }, [listRef]);
+
   if (items.length === 0) return emptyState;
 
   return (
     <>
-      <ul className={styles.list} aria-label={label}>
+      <ul ref={listRef} className={styles.list} aria-label={label}>
         {items.map((item) => <li key={getItemKey(item)}>{renderItem(item)}</li>)}
       </ul>
       <div className={styles.loadMore}>
@@ -49,11 +59,20 @@ export function InfiniteList<T>({
         </p>
         {isError && <p role="alert">{messages.error}</p>}
         {hasNextPage && (
-          <button className={styles.action} disabled={isFetching} onClick={onLoadMore}>
+          <button type="button" className={styles.action} disabled={isFetching} onClick={onLoadMore}>
             {isError ? "Try again" : "Load more"}
           </button>
         )}
       </div>
+      <button
+        type="button"
+        className={`${styles.action} ${styles.scrollToTop}`}
+        onClick={scrollToTop}
+        aria-label="Back to top"
+        title="Back to top"
+      >
+        <span aria-hidden="true">↑</span>
+      </button>
     </>
   );
 }

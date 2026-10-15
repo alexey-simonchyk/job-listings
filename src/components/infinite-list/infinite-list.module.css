@@ -55,3 +55,25 @@
   outline: 3px solid #16796b;
   outline-offset: 4px;
 }
+
+.scrollToTop {
+  position: fixed;
+  right: 24px;
+  bottom: 32px;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  min-width: 0;
+  padding: 0;
+  border-radius: 50%;
+  background: #fff;
+  color: #205e52;
+  font-size: 24px;
+  box-shadow: 0 4px 16px #182e3220;
+}
+
+.scrollToTop:hover {
+  background: #e7eded;
+}

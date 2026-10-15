@@ -41,3 +41,31 @@
   font-size: 14px;
   font-weight: 600;
 }
+
+.refreshButton {
+  margin-top: 16px;
+  padding: 12px 24px;
+  border: 1px solid #205e52;
+  border-radius: 8px;
+  background: #205e52;
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.refreshButton:hover {
+  background: #143e36;
+}
+
+.refreshButton:disabled {
+  border-color: #dce5e5;
+  background: #e7eded;
+  color: #52676b;
+  cursor: wait;
+}
+
+.refreshButton:focus-visible {
+  outline: 3px solid #16796b;
+  outline-offset: 4px;
+}

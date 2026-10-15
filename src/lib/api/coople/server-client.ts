@@ -1,6 +1,6 @@
 import "server-only";
 
-import { notFound } from "next/navigation";
+import { notFound, unstable_rethrow } from "next/navigation";
 import type { JobDetails, JobSummary } from "@/types/coople";
 import type { Page } from "@/types/pagination";
 import type { CoopleResponseDto, JobDetailsDto, JobsPageDto, JobsQueryDto } from "./dto";
@@ -22,6 +22,9 @@ export async function getJob(id: string): Promise<JobDetails> {
     );
     return mapJobDetails(payload.data!);
   } catch (error) {
+    unstable_rethrow(error);
+    console.error("Failed to load job details.", { error });
+
     if (error instanceof CoopleApiError && error.httpStatus === 404) {
       notFound();
     }

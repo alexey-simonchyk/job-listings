@@ -1,18 +1,14 @@
 import Link from "next/link";
 import type { JobSummary } from "@/types/coople";
-import { formatDate, formatLocation, formatMoney } from "../../utils/format";
+import { JobDate } from "@/components/job-date/job-date.component";
+import { formatLocation, formatMoney } from "@/utils/job-format";
 import styles from "./job-card.module.css";
-
-function JobDate({ timestamp }: { timestamp: number | null }) {
-  const date = formatDate(timestamp);
-  return date ? <time dateTime={date.iso}>{date.label} (Europe/Warsaw)</time> : "Not provided";
-}
 
 export function JobCard({ job }: { job: JobSummary }) {
   return (
     <article className={styles.card}>
       <h2>
-        <Link className={styles.title} href={`/job/${encodeURIComponent(job.id)}`}>
+        <Link className={styles.title} href={`/jobs/${encodeURIComponent(job.id)}`}>
           {job.title || "Untitled job"}
         </Link>
       </h2>

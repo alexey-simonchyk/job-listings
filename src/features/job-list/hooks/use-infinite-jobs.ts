@@ -28,5 +28,8 @@ export function useInfiniteJobs(initialJobs: Page<JobSummary>) {
     }),
     staleTime: 60_000,
     retry: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
   });
 }

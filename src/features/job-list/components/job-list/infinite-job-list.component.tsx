@@ -8,7 +8,7 @@ import { JobCard } from "../job-card/job-card.component";
 import styles from "./job-list.module.css";
 
 export function InfiniteJobList({ initialJobs }: { initialJobs: Page<JobSummary> }) {
-  const { data, fetchNextPage, hasNextPage, isFetching, isError } = useInfiniteJobs(initialJobs);
+  const { data, fetchNextPage, refetch, hasNextPage, isFetching, isError } = useInfiniteJobs(initialJobs);
   const { items: jobs, total } = data;
 
   return (
@@ -27,6 +27,13 @@ export function InfiniteJobList({ initialJobs }: { initialJobs: Page<JobSummary>
           <section className={styles.state} aria-labelledby="empty-heading">
             <h2 id="empty-heading">No jobs found</h2>
             <p>There are no jobs available. Please check again later.</p>
+            <button
+              className={styles.refreshButton}
+              disabled={isFetching}
+              onClick={() => refetch({ cancelRefetch: false })}
+            >
+              {isFetching ? "Refreshing…" : "Refresh"}
+            </button>
           </section>
         }
         messages={{
