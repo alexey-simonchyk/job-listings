@@ -5,6 +5,7 @@ import type { Page } from "@/types/pagination";
 import { InfiniteList } from "@/components/infinite-list/infinite-list.component";
 import { useInfiniteJobs } from "../../hooks/use-infinite-jobs";
 import { JobCard } from "../job-card/job-card.component";
+import { JobListEmptyState } from "./job-list-empty-state.component";
 import styles from "./job-list.module.css";
 
 export function InfiniteJobList({ initialJobs }: { initialJobs: Page<JobSummary> }) {
@@ -24,17 +25,11 @@ export function InfiniteJobList({ initialJobs }: { initialJobs: Page<JobSummary>
         isError={isError}
         label="Jobs"
         emptyState={
-          <section className={styles.state} aria-labelledby="empty-heading">
-            <h2 id="empty-heading">No jobs found</h2>
-            <p>There are no jobs available. Please check again later.</p>
-            <button
-              className={styles.refreshButton}
-              disabled={isFetching}
-              onClick={() => refetch({ cancelRefetch: false })}
-            >
-              {isFetching ? "Refreshing…" : "Refresh"}
-            </button>
-          </section>
+          <JobListEmptyState
+            isFetching={isFetching}
+            isError={isError}
+            onRefresh={() => refetch({ cancelRefetch: false })}
+          />
         }
         messages={{
           loading: "Loading more jobs…",

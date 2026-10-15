@@ -16,9 +16,16 @@ export async function request<T>(url: string): Promise<T> {
     cache: "no-store",
   });
 
+  if (!response.ok) {
+    throw new CoopleApiError(
+      `Coople request failed (HTTP ${response.status}).`,
+      response.status,
+    );
+  }
+
   const payload: T & { error?: boolean } = await response.json();
 
-  if (!response.ok || payload.error) {
+  if (payload.error) {
     throw new CoopleApiError(
       `Coople request failed (HTTP ${response.status}).`,
       response.status,

@@ -5,7 +5,7 @@ import { FavoriteButton } from "@/features/favorites/components/favorite-button/
 import { formatLocation, formatMoney } from "@/utils/job-format";
 import styles from "./job-details.module.css";
 
-export function JobDetailsComponent({ job }: { job: JobDetails }) {
+export function JobDetailsView({ job }: { job: JobDetails }) {
   return (
     <main className={styles.page}>
       <Link className={styles.backLink} href="/jobs">Back to jobs</Link>

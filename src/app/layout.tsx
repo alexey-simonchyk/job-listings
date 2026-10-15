@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { QueryProvider } from "@/providers/query-provider";
-import { FavoritesProvider } from "@/providers/favorites-provider";
+import { FavoritesProvider } from "@/features/favorites/providers/favorites-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {

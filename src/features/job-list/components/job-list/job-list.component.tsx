@@ -4,7 +4,7 @@ import type { Page } from "@/types/pagination";
 import { InfiniteJobList } from "./infinite-job-list.component";
 import styles from "./job-list.module.css";
 
-export function JobListComponent({ jobs }: { jobs: Page<JobSummary> }) {
+export function JobList({ jobs }: { jobs: Page<JobSummary> }) {
   return (
     <main className={styles.page}>
       <header className={styles.header}>
