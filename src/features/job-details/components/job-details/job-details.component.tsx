@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { JobDetails } from "@/types/coople";
 import { JobDate } from "@/components/job-date/job-date.component";
+import { FavoriteButton } from "@/features/favorites/components/favorite-button/favorite-button.component";
 import { formatLocation, formatMoney } from "@/utils/job-format";
 import styles from "./job-details.module.css";
 
@@ -9,7 +10,10 @@ export function JobDetailsComponent({ job }: { job: JobDetails }) {
     <main className={styles.page}>
       <Link className={styles.backLink} href="/jobs">Back to jobs</Link>
       <article className={`${styles.panel} ${styles.details}`}>
-        <h1>{job.title || "Untitled job"}</h1>
+        <header className={styles.header}>
+          <h1>{job.title || "Untitled job"}</h1>
+          <FavoriteButton jobId={job.id} jobTitle={job.title} />
+        </header>
         <dl className={styles.facts}>
           <div><dt>Reference</dt><dd>{job.reference || "Not provided"}</dd></div>
           <div><dt>Location</dt><dd>{formatLocation(job.location)}</dd></div>

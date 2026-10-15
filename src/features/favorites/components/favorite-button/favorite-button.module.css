@@ -1,0 +1,36 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid #9dbfb5;
+  border-radius: 8px;
+  background: #fff;
+  color: #205e52;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button[aria-pressed="true"] {
+  border-color: #205e52;
+  background: #dcefea;
+}
+
+.button:hover {
+  border-color: #205e52;
+  background: #e7eded;
+}
+
+.button:focus-visible {
+  outline: 3px solid #16796b;
+  outline-offset: 4px;
+}
+
+.button span {
+  font-size: 20px;
+  line-height: 1;
+}

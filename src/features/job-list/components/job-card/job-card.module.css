@@ -11,10 +11,19 @@
 }
 
 .card h2 {
-  margin: 0 0 20px;
+  min-width: 0;
+  margin: 0;
   font-size: 21px;
   font-weight: 700;
   line-height: 1.4;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 20px;
 }
 
 .title {

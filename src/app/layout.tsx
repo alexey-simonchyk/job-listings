@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { QueryProvider } from "@/providers/query-provider";
+import { FavoritesProvider } from "@/providers/favorites-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -11,7 +12,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body><QueryProvider>{children}</QueryProvider></body>
+      <body>
+        <QueryProvider>
+          <FavoritesProvider>{children}</FavoritesProvider>
+        </QueryProvider>
+      </body>
     </html>
   );
 }

@@ -22,10 +22,15 @@ export function useInfiniteJobs(initialJobs: Page<JobSummary>) {
         : undefined;
     },
     initialData: { pages: [initialJobs], pageParams: [0] },
-    select: (data) => ({
-      items: data.pages.flatMap((page) => page.items),
-      total: data.pages[data.pages.length - 1].total,
-    }),
+    select: (data) => {
+      const jobs = data.pages.flatMap((page) => page.items);
+      const jobsById = new Map(jobs.map((job) => [job.id, job]));
+
+      return {
+        items: Array.from(jobsById.values()),
+        total: data.pages[data.pages.length - 1].total,
+      };
+    },
     staleTime: 60_000,
     retry: false,
     refetchOnMount: false,
