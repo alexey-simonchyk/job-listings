@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, type Key, type ReactNode, useCallback } from 'react';
+import type { Key, ReactNode } from "react";
+import { useScrollToTop } from "@/hooks/use-scroll-to-top";
 import styles from "./infinite-list.module.css";
 
 type InfiniteListProps<T> = {
@@ -36,21 +37,13 @@ export function InfiniteList<T>({
     end: "All available items have been loaded.",
   },
 }: InfiniteListProps<T>) {
-  const listRef = useRef<HTMLUListElement>(null);
-
-  const scrollToTop = useCallback(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    listRef.current?.scrollIntoView({
-      behavior: prefersReducedMotion ? "instant" : "smooth",
-      block: "start",
-    });
-  }, [listRef]);
+  const scrollToTop = useScrollToTop();
 
   if (items.length === 0) return emptyState;
 
   return (
     <>
-      <ul ref={listRef} className={styles.list} aria-label={label}>
+      <ul className={styles.list} aria-label={label}>
         {items.map((item) => <li key={getItemKey(item)}>{renderItem(item)}</li>)}
       </ul>
       <div className={styles.loadMore}>
