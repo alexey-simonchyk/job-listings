@@ -1,9 +1,27 @@
 # Coople public jobs
 
 A Next.js application for browsing public job opportunities from Coople.
-The project currently provides a temporary home page and the structure for
-future implementation. API integration, data transfer objects, job pages,
-and favorites are not implemented.
+
+## Features
+
+- Server-rendered job list with client-side pagination using TanStack Query.
+  The Load more button fetches the next page of 30 jobs; duplicate jobs are
+  merged by ID.
+- Job details with location, pay, shift dates, and requirements.
+- Favorites that can be toggled from the list and details pages and are saved
+  in browser localStorage.
+- Loading, empty, and error states with manual retry actions, including failed
+  refreshes of an empty list and a not-found page for upstream HTTP 404 responses.
+- Date formatting using the browser locale after mounting.
+
+## Routes and data flow
+
+The server client calls the Coople public jobs API at
+`https://www.coople.com/ch/resources/api/work-assignments/public-jobs`.
+DTOs describe upstream responses, and mappers convert them into application
+models. Fetch requests and the local API route use `no-store`.
+No API credentials or environment variables are currently required; loading
+jobs requires network access to Coople.
 
 ## Requirements and installation
 
@@ -44,33 +62,19 @@ checks that the application compiles. No automated test suite is configured yet.
 
 ## Structure and architecture
 
-```text
-src/
-  app/
-    globals.css
-    layout.tsx
-    page.tsx
-  features/
-    job-list/
-      components/
-    job-details/
-      components/
-  components/
-  hooks/
-  contexts/
-  lib/
-    coople/
-```
+The project groups code by feature and keeps shared code at the `src/` level.
 
-- `app/` owns routing, server-side data loading, and feature composition.
-- `features/<feature>/` contains code specific to that feature. Add local
-  `components/`, `hooks/`, `contexts/`, `types.ts`, `utils.ts`, or other files
-  only when needed.
-- Top-level `components/`, `hooks/`, and `contexts/` contain shared code only.
-- `lib/coople/` is reserved for the shared Coople integration.
-- Empty directories are preserved with `.gitkeep` files. No placeholder
-  components or abstractions are required.
+- `src/app/` handles routing, server-side data loading, and feature composition.
+- Shared components, hooks, contexts, providers, types, utilities, and integrations
+  belong in `src/components/`, `src/hooks/`, `src/contexts/`, `src/providers/`,
+  `src/types/`, `src/utils/`, and `src/lib/`, respectively.
+- Code that belongs to a specific feature stays in `src/features/<feature>/`,
+  with local `components/`, `hooks/`, `contexts/`, `providers/`, `types/`, or
+  `utils/` directories as needed. A feature provider stays with its feature
+  even when it is connected in the root layout.
 
-The project uses TypeScript, the Next.js App Router, and Tailwind CSS through
-its existing Turbopack configuration. Global styles use system fonts and do
-not fetch external fonts. The `@/*` import alias resolves to `src/*`.
+The project uses TypeScript, the Next.js App Router, React, and TanStack Query.
+Component styles use CSS Modules, with Tailwind CSS configured through
+Turbopack for global styles. Cache Components, partial prefetching, and the
+React Compiler are enabled in `next.config.ts`. Global styles use system fonts
+and do not fetch external fonts. The `@/*` import alias resolves to `src/*`.
